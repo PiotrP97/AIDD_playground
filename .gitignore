@@ -39,3 +39,14 @@ Thumbs.db
 # Misc
 .cache/
 .turbo/
+
+# from 10x-astro-starter
+# generated types
+.astro/
+
+# environment variables
+.env.production
+
+# cloudflare
+.dev.vars
+.wrangler/
