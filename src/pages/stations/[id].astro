@@ -1,0 +1,77 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Topbar from "@/components/Topbar.astro";
+import { createClient } from "@/lib/supabase";
+
+interface StationDetail {
+  id: string;
+  name: string;
+  sightings: {
+    id: string;
+    occurred_at: string;
+    rolling_stock_types: { name: string } | null;
+  }[];
+}
+
+const { id } = Astro.params;
+const supabase = id ? createClient(Astro.request.headers, Astro.cookies) : null;
+
+let station: StationDetail | null = null;
+if (supabase) {
+  const { data } = await supabase
+    .from("stations")
+    .select("id, name, sightings(id, occurred_at, rolling_stock_types(name))")
+    .eq("id", id)
+    .single();
+  station = (data as StationDetail | null) ?? null;
+}
+
+if (!station) {
+  Astro.response.status = 404;
+}
+
+const sightings = (station?.sightings ?? [])
+  .slice()
+  .sort((a, b) => new Date(b.occurred_at).getTime() - new Date(a.occurred_at).getTime());
+
+const formatter = new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" });
+---
+
+<Layout title={station?.name ?? "Station not found"}>
+  <div class="bg-cosmic min-h-screen p-4">
+    <Topbar />
+    <div class="mx-auto max-w-2xl">
+      {
+        !station ? (
+          <p class="mt-6 text-blue-100/60">Station not found.</p>
+        ) : (
+          <>
+            <h1 class="mt-6 mb-6 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-2xl font-bold text-transparent">
+              {station.name}
+            </h1>
+            {sightings.length === 0 ? (
+              <p class="text-blue-100/60">No sightings recorded yet.</p>
+            ) : (
+              <table class="w-full overflow-hidden rounded-xl border border-white/10 text-left text-sm text-white">
+                <thead class="bg-white/5 text-blue-100/70">
+                  <tr>
+                    <th class="px-4 py-2 font-medium">Rolling-stock type</th>
+                    <th class="px-4 py-2 font-medium">Seen at</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sightings.map((sighting) => (
+                    <tr class="border-t border-white/10">
+                      <td class="px-4 py-2">{sighting.rolling_stock_types?.name ?? "Unknown"}</td>
+                      <td class="px-4 py-2">{formatter.format(new Date(sighting.occurred_at))}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </>
+        )
+      }
+    </div>
+  </div>
+</Layout>
