@@ -425,11 +425,11 @@ tables the new API routes and pages depend on.
 
 #### Automated
 
-- [x] 4.1 Lint passes: `npm run lint`
-- [x] 4.2 Build succeeds: `npm run build`
+- [x] 4.1 Lint passes: `npm run lint` — 4ea331c
+- [x] 4.2 Build succeeds: `npm run build` — 4ea331c
 
 #### Manual
 
-- [x] 4.3 Visiting /stations/<real-id> while signed out shows the sightings list
-- [x] 4.4 Phase 3's recorded sighting appears with correct type name and timestamp
-- [x] 4.5 Visiting /stations/<nonexistent-id> returns a 404 / not-found state
+- [x] 4.3 Visiting /stations/<real-id> while signed out shows the sightings list — 4ea331c
+- [x] 4.4 Phase 3's recorded sighting appears with correct type name and timestamp — 4ea331c
+- [x] 4.5 Visiting /stations/<nonexistent-id> returns a 404 / not-found state — 4ea331c

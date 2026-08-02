@@ -1,7 +1,7 @@
 ---
 change_id: record-a-sighting
 title: Record a rolling-stock sighting at a station
-status: implementing
+status: implemented
 created: 2026-08-02
 updated: 2026-08-02
 archived_at: null
