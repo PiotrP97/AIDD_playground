@@ -411,25 +411,25 @@ tables the new API routes and pages depend on.
 
 #### Automated
 
-- [x] 3.1 Lint passes: `npm run lint`
-- [x] 3.2 Build succeeds: `npm run build`
+- [x] 3.1 Lint passes: `npm run lint` — 1e5ec2c
+- [x] 3.2 Build succeeds: `npm run build` — 1e5ec2c
 
 #### Manual
 
-- [x] 3.3 Visiting /sightings/new while signed out redirects to /auth/signin
-- [x] 3.4 Combobox search filters existing rows; new name surfaces "Create '<query>'"
-- [x] 3.5 Full happy path: create/pick type + station, submit, lands on station page
-- [x] 3.6 Topbar visible on every page with a working link to the new form
+- [x] 3.3 Visiting /sightings/new while signed out redirects to /auth/signin — 1e5ec2c
+- [x] 3.4 Combobox search filters existing rows; new name surfaces "Create '<query>'" — 1e5ec2c
+- [x] 3.5 Full happy path: create/pick type + station, submit, lands on station page — 1e5ec2c
+- [x] 3.6 Topbar visible on every page with a working link to the new form — 1e5ec2c
 
 ### Phase 4: Station occurrence-history page
 
 #### Automated
 
-- [ ] 4.1 Lint passes: `npm run lint`
-- [ ] 4.2 Build succeeds: `npm run build`
+- [x] 4.1 Lint passes: `npm run lint`
+- [x] 4.2 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 4.3 Visiting /stations/<real-id> while signed out shows the sightings list
-- [ ] 4.4 Phase 3's recorded sighting appears with correct type name and timestamp
-- [ ] 4.5 Visiting /stations/<nonexistent-id> returns a 404 / not-found state
+- [x] 4.3 Visiting /stations/<real-id> while signed out shows the sightings list
+- [x] 4.4 Phase 3's recorded sighting appears with correct type name and timestamp
+- [x] 4.5 Visiting /stations/<nonexistent-id> returns a 404 / not-found state
