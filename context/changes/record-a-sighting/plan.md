@@ -398,28 +398,28 @@ tables the new API routes and pages depend on.
 
 #### Automated
 
-- [x] 2.1 Lint passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Lint passes: `npm run lint` — b0ac79a
+- [x] 2.2 Build succeeds: `npm run build` — b0ac79a
 
 #### Manual
 
-- [x] 2.3 Unauthenticated POST /api/sightings returns 401
-- [x] 2.4 Authenticated GET search returns expected case-insensitive filtered results
-- [x] 2.5 Authenticated POST create returns 201; duplicate name (any case) returns 409
+- [x] 2.3 Unauthenticated POST /api/sightings returns 401 — b0ac79a
+- [x] 2.4 Authenticated GET search returns expected case-insensitive filtered results — b0ac79a
+- [x] 2.5 Authenticated POST create returns 201; duplicate name (any case) returns 409 — b0ac79a
 
 ### Phase 3: Sighting-recording UI
 
 #### Automated
 
-- [ ] 3.1 Lint passes: `npm run lint`
-- [ ] 3.2 Build succeeds: `npm run build`
+- [x] 3.1 Lint passes: `npm run lint`
+- [x] 3.2 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 3.3 Visiting /sightings/new while signed out redirects to /auth/signin
-- [ ] 3.4 Combobox search filters existing rows; new name surfaces "Create '<query>'"
-- [ ] 3.5 Full happy path: create/pick type + station, submit, lands on station page
-- [ ] 3.6 Topbar visible on every page with a working link to the new form
+- [x] 3.3 Visiting /sightings/new while signed out redirects to /auth/signin
+- [x] 3.4 Combobox search filters existing rows; new name surfaces "Create '<query>'"
+- [x] 3.5 Full happy path: create/pick type + station, submit, lands on station page
+- [x] 3.6 Topbar visible on every page with a working link to the new form
 
 ### Phase 4: Station occurrence-history page
 
