@@ -1,6 +1,5 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Topbar from "@/components/Topbar.astro";
 import { createClient } from "@/lib/supabase";
 
 interface StationDetail {
@@ -18,11 +17,16 @@ const supabase = id ? createClient(Astro.request.headers, Astro.cookies) : null;
 
 let station: StationDetail | null = null;
 if (supabase) {
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("stations")
     .select("id, name, sightings(id, occurred_at, rolling_stock_types(name))")
     .eq("id", id)
     .single();
+  // PGRST116 ("no rows") is the expected shape of a genuinely missing station;
+  // anything else (malformed id, RLS/DB failure) is a real problem worth logging.
+  if (error && error.code !== "PGRST116") {
+    console.error(`Failed to load station ${id}:`, error);
+  }
   station = (data as StationDetail | null) ?? null;
 }
 
@@ -39,7 +43,6 @@ const formatter = new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeSt
 
 <Layout title={station?.name ?? "Station not found"}>
   <div class="bg-cosmic min-h-screen p-4">
-    <Topbar />
     <div class="mx-auto max-w-2xl">
       {
         !station ? (
