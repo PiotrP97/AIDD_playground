@@ -1,0 +1,122 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { createClient } from "@/lib/supabase";
+import { PAGE_SIZE, calculateRange, calculateTotalPages, clampPage, parsePage } from "@/lib/pagination";
+
+interface SightingRow {
+  id: string;
+  occurred_at: string;
+  rolling_stock_types: { name: string } | null;
+  stations: { id: string; name: string } | null;
+}
+
+const supabase = createClient(Astro.request.headers, Astro.cookies);
+
+let currentPage = parsePage(Astro.url.searchParams.get("page"));
+let totalPages = 1;
+let sightings: SightingRow[] = [];
+
+if (supabase) {
+  const fetchPage = async (page: number) => {
+    const { from, to } = calculateRange(page, PAGE_SIZE);
+    const { data, error, count } = await supabase
+      .from("sightings")
+      .select("id, occurred_at, rolling_stock_types(name), stations(id, name)", { count: "exact" })
+      .order("occurred_at", { ascending: false })
+      .range(from, to);
+    if (error) {
+      console.error(`Failed to load sightings (page ${String(page)}):`, error);
+    }
+    return { rows: (data as SightingRow[] | null) ?? [], count: count ?? 0 };
+  };
+
+  const first = await fetchPage(currentPage);
+  totalPages = calculateTotalPages(first.count, PAGE_SIZE);
+  const clamped = clampPage(currentPage, totalPages);
+
+  if (clamped === currentPage) {
+    sightings = first.rows;
+  } else {
+    currentPage = clamped;
+    sightings = (await fetchPage(currentPage)).rows;
+  }
+}
+
+const formatter = new Intl.DateTimeFormat("en-GB", { dateStyle: "medium", timeStyle: "short" });
+const hasPrev = currentPage > 1;
+const hasNext = currentPage < totalPages;
+---
+
+<Layout title="Sightings">
+  <div class="bg-cosmic min-h-screen p-4">
+    <div class="mx-auto max-w-2xl">
+      <h1
+        class="mt-6 mb-6 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-2xl font-bold text-transparent"
+      >
+        Sightings
+      </h1>
+      {
+        sightings.length === 0 ? (
+          <p class="text-blue-100/60">No sightings recorded yet.</p>
+        ) : (
+          <>
+            <table class="w-full overflow-hidden rounded-xl border border-white/10 text-left text-sm text-white">
+              <thead class="bg-white/5 text-blue-100/70">
+                <tr>
+                  <th class="px-4 py-2 font-medium">Rolling-stock type</th>
+                  <th class="px-4 py-2 font-medium">Station</th>
+                  <th class="px-4 py-2 font-medium">Seen at</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sightings.map((sighting) => (
+                  <tr class="border-t border-white/10">
+                    <td class="px-4 py-2">{sighting.rolling_stock_types?.name ?? "Unknown"}</td>
+                    <td class="px-4 py-2">
+                      {sighting.stations ? (
+                        <a
+                          href={`/stations/${sighting.stations.id}`}
+                          class="text-purple-300 transition-colors hover:text-purple-100 hover:underline"
+                        >
+                          {sighting.stations.name}
+                        </a>
+                      ) : (
+                        "Unknown"
+                      )}
+                    </td>
+                    <td class="px-4 py-2">{formatter.format(new Date(sighting.occurred_at))}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div class="mt-4 flex items-center justify-between text-sm text-blue-100/70">
+              <div>
+                {hasPrev && (
+                  <a
+                    href={`/sightings?page=${String(currentPage - 1)}`}
+                    class="text-purple-300 transition-colors hover:text-purple-100 hover:underline"
+                  >
+                    ← Prev
+                  </a>
+                )}
+              </div>
+              <span>
+                Page {currentPage} of {totalPages}
+              </span>
+              <div>
+                {hasNext && (
+                  <a
+                    href={`/sightings?page=${String(currentPage + 1)}`}
+                    class="text-purple-300 transition-colors hover:text-purple-100 hover:underline"
+                  >
+                    Next →
+                  </a>
+                )}
+              </div>
+            </div>
+          </>
+        )
+      }
+    </div>
+  </div>
+</Layout>
