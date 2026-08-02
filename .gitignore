@@ -50,3 +50,6 @@ Thumbs.db
 # cloudflare
 .dev.vars
 .wrangler/
+
+# claude
+.claude/
