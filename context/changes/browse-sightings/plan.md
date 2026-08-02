@@ -248,15 +248,15 @@ No schema changes — this slice only reads existing tables.
 
 #### Automated
 
-- [x] 2.1 Lint passes: `npm run lint`
-- [x] 2.2 Build succeeds: `npm run build`
-- [x] 2.3 Unit tests still pass: `npm run test`
+- [x] 2.1 Lint passes: `npm run lint` — ef23f87
+- [x] 2.2 Build succeeds: `npm run build` — ef23f87
+- [x] 2.3 Unit tests still pass: `npm run test` — ef23f87
 
 #### Manual
 
-- [x] 2.4 Visiting /sightings while signed out shows the list
-- [x] 2.5 Prev/next links appear correctly and navigate; absent at first/last page
-- [x] 2.6 /sightings?page=9999 clamps to the last valid page
-- [x] 2.7 Station name links to that station's /stations/{id} page
-- [x] 2.8 Zero-sightings state shows "No sightings recorded yet."
-- [x] 2.9 Topbar "Sightings" link visible signed in and signed out; dashboard link works signed in
+- [x] 2.4 Visiting /sightings while signed out shows the list — ef23f87
+- [x] 2.5 Prev/next links appear correctly and navigate; absent at first/last page — ef23f87
+- [x] 2.6 /sightings?page=9999 clamps to the last valid page — ef23f87
+- [x] 2.7 Station name links to that station's /stations/{id} page — ef23f87
+- [x] 2.8 Zero-sightings state shows "No sightings recorded yet." — ef23f87
+- [x] 2.9 Topbar "Sightings" link visible signed in and signed out; dashboard link works signed in — ef23f87

@@ -1,7 +1,7 @@
 ---
 change_id: browse-sightings
 title: Browse recorded sightings across the system
-status: implementing
+status: implemented
 created: 2026-08-02
 updated: 2026-08-02
 archived_at: null
