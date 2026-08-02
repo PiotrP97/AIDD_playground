@@ -299,7 +299,9 @@ sightings — the app's first bracket route.
 
 **Intent**: Server-rendered, no auth required (matches the public-read RLS policy). Reads `Astro.params.id`, queries the station row and its sightings (joined with `rolling_stock_types` for the type name), renders the station name as a heading and the sightings as a table (type name, `occurred_at` formatted via `Intl.DateTimeFormat`). `reported_at` and `created_by` are not displayed (the latter per the NFR that a member's email is never publicly shown alongside their contributions).
 
-**Contract**: If no station matches `Astro.params.id`, return `new Response(null, { status: 404 })` from the frontmatter rather than rendering an empty page.
+**Contract**: If no station matches `Astro.params.id`, set `Astro.response.status = 404` and render a "Station not found" message rather than an empty page.
+
+> Updated 2026-08-02 (impl-review F4): the original text below specified an early `return new Response(null, { status: 404 })` from frontmatter. That pattern crashes this repo's `@typescript-eslint/no-misused-promises` rule on any top-level `return` in Astro frontmatter (confirmed via a minimal repro during implementation — a parser/rule bug, not a code issue). `Astro.response.status = 404` achieves the same real 404 status without the crash, and additionally renders a styled "Station not found" message instead of a blank body.
 
 ### Success Criteria:
 

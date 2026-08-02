@@ -26,6 +26,7 @@ export function CreatableCombobox({ searchEndpoint, createEndpoint, label, onSel
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   useEffect(() => {
     if (!open) {
@@ -35,17 +36,26 @@ export function CreatableCombobox({ searchEndpoint, createEndpoint, label, onSel
       clearTimeout(debounceRef.current);
     }
     debounceRef.current = setTimeout(() => {
+      abortRef.current?.abort();
+      const controller = new AbortController();
+      abortRef.current = controller;
+
       setLoading(true);
-      fetch(`${searchEndpoint}?q=${encodeURIComponent(query)}`)
+      fetch(`${searchEndpoint}?q=${encodeURIComponent(query)}`, { signal: controller.signal })
         .then((res) => res.json() as Promise<{ items: SearchItem[] }>)
         .then((data) => {
           setItems(data.items);
         })
-        .catch(() => {
+        .catch((err: unknown) => {
+          if (err instanceof DOMException && err.name === "AbortError") {
+            return;
+          }
           setItems([]);
         })
         .finally(() => {
-          setLoading(false);
+          if (abortRef.current === controller) {
+            setLoading(false);
+          }
         });
     }, 300);
 
