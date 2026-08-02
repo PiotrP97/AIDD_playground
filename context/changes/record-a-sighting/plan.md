@@ -385,27 +385,27 @@ tables the new API routes and pages depend on.
 
 #### Automated
 
-- [x] 1.1 Local Supabase stack starts: `npx supabase start`
-- [x] 1.2 Migration applies cleanly from scratch: `npx supabase db reset`
+- [x] 1.1 Local Supabase stack starts: `npx supabase start` — d82c1a3
+- [x] 1.2 Migration applies cleanly from scratch: `npx supabase db reset` — d82c1a3
 
 #### Manual
 
-- [x] 1.3 RLS enabled and expected SELECT/INSERT policies present on all three tables
-- [x] 1.4 Anonymous insert rejected; authenticated insert with matching created_by succeeds
-- [x] 1.5 Migration applied to the production Supabase project before/alongside app deploy
+- [x] 1.3 RLS enabled and expected SELECT/INSERT policies present on all three tables — d82c1a3
+- [x] 1.4 Anonymous insert rejected; authenticated insert with matching created_by succeeds — d82c1a3
+- [x] 1.5 Migration applied to the production Supabase project before/alongside app deploy — d82c1a3
 
 ### Phase 2: Sighting-domain API routes
 
 #### Automated
 
-- [ ] 2.1 Lint passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
+- [x] 2.1 Lint passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
 
 #### Manual
 
-- [ ] 2.3 Unauthenticated POST /api/sightings returns 401
-- [ ] 2.4 Authenticated GET search returns expected case-insensitive filtered results
-- [ ] 2.5 Authenticated POST create returns 201; duplicate name (any case) returns 409
+- [x] 2.3 Unauthenticated POST /api/sightings returns 401
+- [x] 2.4 Authenticated GET search returns expected case-insensitive filtered results
+- [x] 2.5 Authenticated POST create returns 201; duplicate name (any case) returns 409
 
 ### Phase 3: Sighting-recording UI
 
