@@ -21,6 +21,12 @@ const { user } = Astro.locals;
         >
           Record a sighting
         </a>
+        <a
+          href="/sightings"
+          class="mt-6 ml-3 inline-block rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm transition-colors hover:bg-white/20"
+        >
+          Browse sightings
+        </a>
         <form method="POST" action="/api/auth/signout" class="mt-6">
           <button
             type="submit"

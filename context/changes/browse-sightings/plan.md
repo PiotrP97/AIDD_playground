@@ -240,23 +240,23 @@ No schema changes — this slice only reads existing tables.
 
 #### Automated
 
-- [x] 1.1 Lint passes: `npm run lint`
-- [x] 1.2 Unit tests pass: `npm run test`
-- [x] 1.3 Build succeeds: `npm run build`
+- [x] 1.1 Lint passes: `npm run lint` — db648d6
+- [x] 1.2 Unit tests pass: `npm run test` — db648d6
+- [x] 1.3 Build succeeds: `npm run build` — db648d6
 
 ### Phase 2: Sightings list page + nav
 
 #### Automated
 
-- [ ] 2.1 Lint passes: `npm run lint`
-- [ ] 2.2 Build succeeds: `npm run build`
-- [ ] 2.3 Unit tests still pass: `npm run test`
+- [x] 2.1 Lint passes: `npm run lint`
+- [x] 2.2 Build succeeds: `npm run build`
+- [x] 2.3 Unit tests still pass: `npm run test`
 
 #### Manual
 
-- [ ] 2.4 Visiting /sightings while signed out shows the list
-- [ ] 2.5 Prev/next links appear correctly and navigate; absent at first/last page
-- [ ] 2.6 /sightings?page=9999 clamps to the last valid page
-- [ ] 2.7 Station name links to that station's /stations/{id} page
-- [ ] 2.8 Zero-sightings state shows "No sightings recorded yet."
-- [ ] 2.9 Topbar "Sightings" link visible signed in and signed out; dashboard link works signed in
+- [x] 2.4 Visiting /sightings while signed out shows the list
+- [x] 2.5 Prev/next links appear correctly and navigate; absent at first/last page
+- [x] 2.6 /sightings?page=9999 clamps to the last valid page
+- [x] 2.7 Station name links to that station's /stations/{id} page
+- [x] 2.8 Zero-sightings state shows "No sightings recorded yet."
+- [x] 2.9 Topbar "Sightings" link visible signed in and signed out; dashboard link works signed in
